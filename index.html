@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fa">
+  <title>My Life Dashboard · 我的生活仪表盘</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="index.html"><span class="brand-icon">M<span>·</span></span><span>My Life<span class="brand-sub">DASHBOARD</span></span></a>
+    <div class="workspace-label">个人工作空间</div>
+    <nav aria-label="任务分类">
+      <button class="nav-item active" data-category="all"><span class="nav-icon">▦</span>全部任务<span class="nav-count" id="count-all">0</span></button>
+      <div class="nav-label">我的分类</div>
+      <button class="nav-item" data-category="毕业论文"><span class="category-dot purple"></span>毕业论文<span class="nav-count" id="count-thesis">0</span></button>
+      <button class="nav-item" data-category="求职实习"><span class="category-dot blue"></span>求职实习<span class="nav-count" id="count-career">0</span></button>
+      <button class="nav-item" data-category="日常生活"><span class="category-dot green"></span>日常生活<span class="nav-count" id="count-life">0</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="note-spark">✧</span><strong>每一小步，都算数。</strong><p>把想做的事写下来，<br>慢慢成为想成为的自己。</p></div>
+    <div class="local-indicator"><span></span>数据仅保存在此浏览器</div>
+    <div class="profile"><div class="avatar">我</div><div><strong>我的生活空间</strong><small>专注当下，保持前进</small></div><span class="profile-spark">✦</span></div>
+  </aside>
+  <main>
+    <header class="topbar"><span>我的工作台 <span class="breadcrumb">/</span> <span id="breadcrumb-category">全部任务</span></span><time id="today"></time></header>
+    <div class="content">
+      <section class="page-heading"><div><div class="eyebrow">MAKE ROOM FOR WHAT MATTERS</div><h1>让生活，有条不紊<span>。</span></h1><p>把目标拆成小事，让每一天都有一点进展。</p></div><button class="primary" id="add-task"><span aria-hidden="true">＋</span> 添加任务</button></section>
+      <section class="stats" aria-label="全部任务统计">
+        <article class="stat-card"><div><span class="stat-label">任务总数</span><strong id="total-count">0</strong><span class="stat-caption">每个计划，都是新的开始</span></div><span class="stat-icon orange">▤</span></article>
+        <article class="stat-card"><div><span class="stat-label">已完成任务</span><strong id="completed-count">0</strong><span class="stat-caption">为自己的每一次行动鼓掌</span></div><span class="stat-icon mint">✓</span></article>
+        <article class="stat-card"><div><span class="stat-label">整体完成率</span><strong><span id="completion-rate">0</span><small>%</small></strong><span class="stat-caption" id="progress-caption">不着急，从第一步开始</span></div><div class="progress-ring" id="progress-ring"><span>↗</span></div></article>
+      </section>
+      <section class="task-panel" aria-labelledby="list-title">
+        <div class="panel-heading"><div><h2 id="list-title">全部任务</h2><span class="result-count" id="result-count">0 个任务</span></div><label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" placeholder="搜索任务…" aria-label="搜索任务" maxlength="200"></label></div>
+        <div class="filter-bar"><div class="tabs" role="group" aria-label="按完成状态筛选"><button class="tab active" data-status="all" aria-pressed="true">全部</button><button class="tab" data-status="pending" aria-pressed="false">待完成</button><button class="tab" data-status="completed" aria-pressed="false">已完成</button></div><label class="sort-label">排序<select id="sort" aria-label="任务排序"><option value="newest">最近添加</option><option value="due">截止日期</option><option value="priority">优先级（高到低）</option></select></label></div>
+        <div class="list-head" aria-hidden="true"><span>任务名称</span><span>分类</span><span>优先级</span><span>截止日期</span><span>操作</span></div>
+        <div id="task-list"></div>
+        <div class="empty-state" id="empty-state"><div class="empty-illustration"><span>✓</span><i></i><i></i><i></i><b>✦</b></div><h3 id="empty-title">给今天，一个小小的目标</h3><p id="empty-description">论文、实习，或是好好生活。把第一件事记在这里吧。</p><button class="empty-add" id="empty-add">＋ 添加我的第一个任务</button></div>
+        <div class="panel-footer"><span id="list-summary">你的计划，从这里开始</span><span>一步一步，慢慢来 <span class="footer-spark">✧</span></span></div>
+      </section>
+      <footer class="page-footer"><span>MY LIFE DASHBOARD</span><span>为目标留一点空间，也为生活留一点余地。</span></footer>
+    </div>
+  </main>
+  <dialog id="task-dialog" aria-labelledby="dialog-title">
+    <form id="task-form"><div class="dialog-heading"><div><span class="eyebrow">ONE SMALL STEP</span><h2 id="dialog-title">添加任务</h2></div><button class="close-button" id="close-dialog" type="button" aria-label="关闭">×</button></div><label class="field">任务名称 <span>*</span><input id="task-title" required maxlength="120" placeholder="你想完成什么？" autocomplete="off"></label><div class="form-row"><label class="field">任务分类<select id="task-category"><option>毕业论文</option><option>求职实习</option><option>日常生活</option></select></label><label class="field">任务优先级<select id="task-priority"><option value="high">高优先级</option><option value="medium" selected>中优先级</option><option value="low">低优先级</option></select></label></div><div class="form-row"><label class="field">截止日期<input id="task-date" type="date" min="0001-01-01" max="9999-12-31"></label></div><label class="checkbox-field"><input id="task-completed" type="checkbox">这个任务已经完成</label><p class="form-hint">截止日期可以留空，按自己的节奏安排。</p><div class="dialog-actions"><button class="secondary" id="cancel-dialog" type="button">取消</button><button class="primary" type="submit">保存任务</button></div></form>
+  </dialog>
+  <dialog id="delete-dialog" aria-labelledby="delete-title"><form id="delete-form"><div class="delete-symbol">!</div><h2 id="delete-title">删除这个任务？</h2><p id="delete-description"></p><p class="form-hint">删除后无法恢复。</p><div class="dialog-actions"><button type="button" class="secondary" id="cancel-delete">保留任务</button><button type="submit" class="danger">确认删除</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
